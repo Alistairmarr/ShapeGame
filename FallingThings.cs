@@ -412,7 +412,7 @@ namespace ShapeGame
                     var value = this.rnd.Next(55) + 200;
                     r = (byte)(value);
                     g = (byte)(value);
-                    b = (byte)(this.rnd.Next(215) + 40);
+                    b = (byte)(255);
                     //r = (byte)Math.Min(255.0, this.baseColor.R * (0.7 + (this.rnd.NextDouble() * 0.7)));
                     //g = (byte)Math.Min(255.0, this.baseColor.G * (0.7 + (this.rnd.NextDouble() * 0.7)));
                     //b = (byte)Math.Min(255.0, this.baseColor.B * (0.7 + (this.rnd.NextDouble() * 0.7)));
