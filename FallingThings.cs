@@ -68,7 +68,8 @@ namespace ShapeGame
             this.targetFrameRate = framerate * intraFrames;
             this.SetGravity(this.gravityFactor);
             this.sceneRect.X = this.sceneRect.Y = 0;
-            this.sceneRect.Width = this.sceneRect.Height = 100;
+            this.sceneRect.Width = 150;
+            this.sceneRect.Height = 100;
             this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 1000.0;
             this.expandingRate = Math.Exp(Math.Log(6.0) / (this.targetFrameRate * DissolveTime));
         }
