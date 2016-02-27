@@ -405,7 +405,7 @@ namespace ShapeGame
                     var value = this.rnd.Next(55) + 200;
                     r = (byte)(value);
                     g = (byte)(value);
-                    b = (byte)(this.rnd.Next(215) + 40);
+                    b = (byte)(255);
                 }
                 else
                 {
