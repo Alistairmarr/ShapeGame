@@ -24,7 +24,7 @@ namespace ShapeGame
     // and appropriate bouncing.
     public class FallingThings
     {
-        private const double BaseGravity = 0.017;
+        private const double BaseGravity = 0.01;
         private const double BaseAirFriction = 0.994;
 
         private readonly Dictionary<PolyType, PolyDef> polyDefs = new Dictionary<PolyType, PolyDef>
