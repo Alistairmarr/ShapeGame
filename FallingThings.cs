@@ -29,14 +29,14 @@ namespace ShapeGame
 
         private readonly Dictionary<PolyType, PolyDef> polyDefs = new Dictionary<PolyType, PolyDef>
             {
-                { PolyType.Triangle, new PolyDef { Sides = 3, Skip = 1 } },
-                { PolyType.Star, new PolyDef { Sides = 5, Skip = 2 } },
-                { PolyType.Pentagon, new PolyDef { Sides = 5, Skip = 1 } },
-                { PolyType.Square, new PolyDef { Sides = 4, Skip = 1 } },
-                { PolyType.Hex, new PolyDef { Sides = 6, Skip = 1 } },
-                { PolyType.Star7, new PolyDef { Sides = 7, Skip = 3 } },
-                { PolyType.Circle, new PolyDef { Sides = 1, Skip = 1 } },
-                { PolyType.Bubble, new PolyDef { Sides = 0, Skip = 1 } }
+                { PolyType.Star0, new PolyDef { Sides = 3, Skip = 1 } },
+                { PolyType.Star1, new PolyDef { Sides = 5, Skip = 2 } },
+                { PolyType.Star2, new PolyDef { Sides = 5, Skip = 1 } },
+                { PolyType.Star3, new PolyDef { Sides = 4, Skip = 1 } },
+                { PolyType.Star4, new PolyDef { Sides = 6, Skip = 1 } },
+                { PolyType.Star5, new PolyDef { Sides = 7, Skip = 3 } },
+                { PolyType.Star6, new PolyDef { Sides = 1, Skip = 1 } },
+                { PolyType.Star7, new PolyDef { Sides = 0, Skip = 1 } }
             };
 
         private readonly List<Thing> things = new List<Thing>();
@@ -392,8 +392,8 @@ namespace ShapeGame
             {
                 PolyType[] alltypes = 
                 {
-                    PolyType.Triangle, PolyType.Square, PolyType.Star, PolyType.Pentagon,
-                    PolyType.Hex, PolyType.Star7, PolyType.Circle, PolyType.Bubble
+                    PolyType.Star0, PolyType.Star3, PolyType.Star1, PolyType.Star2,
+                    PolyType.Star4, PolyType.Star5, PolyType.Star6, PolyType.Star7
                 };
                 byte r;
                 byte g;

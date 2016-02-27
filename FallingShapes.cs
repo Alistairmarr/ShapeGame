@@ -20,14 +20,14 @@ namespace ShapeGame.Utils
     public enum PolyType
     {
         None = 0x00,
-        Triangle = 0x01,
-        Square = 0x02,
-        Star = 0x04,
-        Pentagon = 0x08,
-        Hex = 0x10,
-        Star7 = 0x20,
-        Circle = 0x40,
-        Bubble = 0x80,
+        Star0 = 0x01,
+        Star3 = 0x02,
+        Star1 = 0x04,
+        Star2 = 0x08,
+        Star4 = 0x10,
+        Star5 = 0x20,
+        Star6 = 0x40,
+        Star7 = 0x80,
         All = 0x7f
     }
 
