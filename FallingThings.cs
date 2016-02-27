@@ -70,7 +70,7 @@ namespace ShapeGame
             this.sceneRect.X = this.sceneRect.Y = 100;
             this.sceneRect.Width = 150;
             this.sceneRect.Height = 100;
-            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 10000.0;
+            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 1000.0;
             this.expandingRate = Math.Exp(Math.Log(6.0) / (this.targetFrameRate * DissolveTime));
         }
 
@@ -126,7 +126,7 @@ namespace ShapeGame
         public void SetSize(double f)
         {
             this.baseShapeSize = f;
-            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 1000.0;
+            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 10000.0;
         }
 
         public void SetShapesColor(System.Windows.Media.Color color, bool doRandom)
