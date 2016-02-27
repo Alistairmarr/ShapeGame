@@ -67,7 +67,7 @@ namespace ShapeGame
             this.intraFrames = intraFrames;
             this.targetFrameRate = framerate * intraFrames;
             this.SetGravity(this.gravityFactor);
-            this.sceneRect.X = this.sceneRect.Y = 0;
+            this.sceneRect.X = this.sceneRect.Y = 100;
             this.sceneRect.Width = 150;
             this.sceneRect.Height = 100;
             this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 1000.0;
@@ -402,15 +402,20 @@ namespace ShapeGame
 
                 if (this.doRandomColors)
                 {
-                    r = (byte)(this.rnd.Next(215) + 40);
-                    g = (byte)(this.rnd.Next(215) + 40);
+                    var value = this.rnd.Next(55) + 200;
+                    r = (byte)(value);
+                    g = (byte)(value);
                     b = (byte)(this.rnd.Next(215) + 40);
                 }
                 else
                 {
-                    r = (byte)Math.Min(255.0, this.baseColor.R * (0.7 + (this.rnd.NextDouble() * 0.7)));
-                    g = (byte)Math.Min(255.0, this.baseColor.G * (0.7 + (this.rnd.NextDouble() * 0.7)));
-                    b = (byte)Math.Min(255.0, this.baseColor.B * (0.7 + (this.rnd.NextDouble() * 0.7)));
+                    var value = this.rnd.Next(55) + 200;
+                    r = (byte)(value);
+                    g = (byte)(value);
+                    b = (byte)(this.rnd.Next(215) + 40);
+                    //r = (byte)Math.Min(255.0, this.baseColor.R * (0.7 + (this.rnd.NextDouble() * 0.7)));
+                    //g = (byte)Math.Min(255.0, this.baseColor.G * (0.7 + (this.rnd.NextDouble() * 0.7)));
+                    //b = (byte)Math.Min(255.0, this.baseColor.B * (0.7 + (this.rnd.NextDouble() * 0.7)));
                 }
 
                 PolyType tryType;
