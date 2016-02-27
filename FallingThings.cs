@@ -20,6 +20,7 @@ namespace ShapeGame
     using Microsoft.Kinect;
     using ShapeGame.Utils;
     using System.Windows.Media.Effects;
+    using System.Drawing;
     // FallingThings is the main class to draw and maintain positions of falling shapes.  It also does hit testing
     // and appropriate bouncing.
     public class FallingThings
@@ -48,7 +49,7 @@ namespace ShapeGame
         private Rect sceneRect;
         private double targetFrameRate = 60;
         private double dropRate = 2.0;
-        private double shapeSize = 1.0;
+        private double shapeSize = 1;
         private double baseShapeSize = 20;
         private GameMode gameMode = GameMode.Off;
         private double gravity = BaseGravity;
@@ -70,7 +71,7 @@ namespace ShapeGame
             this.sceneRect.X = this.sceneRect.Y = 100;
             this.sceneRect.Width = 150;
             this.sceneRect.Height = 100;
-            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 1000.0;
+            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 10000.0;
             this.expandingRate = Math.Exp(Math.Log(6.0) / (this.targetFrameRate * DissolveTime));
         }
 
@@ -115,7 +116,7 @@ namespace ShapeGame
         public void SetBoundaries(Rect r)
         {
             this.sceneRect = r;
-            this.shapeSize = r.Height * this.baseShapeSize / 1000.0;
+            this.shapeSize = r.Height * this.baseShapeSize / 2500.0;
         }
 
         public void SetDropRate(double f)
@@ -126,7 +127,7 @@ namespace ShapeGame
         public void SetSize(double f)
         {
             this.baseShapeSize = f;
-            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 3000.0;
+            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 6000.0;
         }
 
         public void SetShapesColor(System.Windows.Media.Color color, bool doRandom)
@@ -402,16 +403,14 @@ namespace ShapeGame
 
                 if (this.doRandomColors)
                 {
-                    var value = this.rnd.Next(55) + 200;
-                    r = (byte)(value);
-                    g = (byte)(value);
+                    r = (byte)(255);
+                    g = (byte)(255);
                     b = (byte)(255);
                 }
                 else
                 {
-                    var value = this.rnd.Next(55) + 200;
-                    r = (byte)(value);
-                    g = (byte)(value);
+                    r = (byte)(255);
+                    g = (byte)(255);
                     b = (byte)(255);
                     //r = (byte)Math.Min(255.0, this.baseColor.R * (0.7 + (this.rnd.NextDouble() * 0.7)));
                     //g = (byte)Math.Min(255.0, this.baseColor.G * (0.7 + (this.rnd.NextDouble() * 0.7)));
@@ -437,6 +436,8 @@ namespace ShapeGame
             for (int i = 0; i < this.things.Count; i++)
             {
                 Thing thing = this.things[i];
+                var prevX = thing.Center.X;
+                var prevY = thing.Center.Y;
                 if (thing.Brush == null)
                 {
                     thing.Brush = new SolidColorBrush(thing.Color);
@@ -450,6 +451,9 @@ namespace ShapeGame
                     thing.BrushPulse = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                 }
 
+                if (thing.State == ThingState.Falling){
+                    //Graphics.FillRectangle(aBrush, x, y, 1, 1);
+                }
                 if (thing.State == ThingState.Bouncing)
                 {
                     // Pulsate edges
@@ -468,6 +472,8 @@ namespace ShapeGame
                             thing.Size * 0.1,
                             alpha));
                     this.things[i] = thing;
+
+
                 }
                 else
                 {
@@ -594,17 +600,21 @@ namespace ShapeGame
             System.Windows.Media.Color glowColour,
             double strokeThickness,
             double opacity)
+
         {
             glowColour.R = 173;
             glowColour.G = 216;
-            glowColour.B = 230;
+            glowColour.B = 255;
+            var glow = new DropShadowEffect { Color = glowColour, Direction = 90, ShadowDepth = 5, Opacity = 1, BlurRadius =10 };
             if (numSides <= 1)
             {
-                var glow = new DropShadowEffect { Color = glowColour, Direction = 0, ShadowDepth = 0, Opacity = 1, BlurRadius = 80,};
-                var circle = new Ellipse { Width = size * 2, Height = size * 2, Stroke = brushStroke, Effect=glow,};
+
+               
+                var circle = new Ellipse { Width = size * 2, Height = size * 2, Stroke = brushStroke, Effect = glow};
+              
                 if (circle.Stroke != null)
                 {
-                    circle.Stroke.Opacity = opacity;
+                    circle.Stroke.Opacity = 1;
                 }
 
                 circle.StrokeThickness = strokeThickness * ((numSides == 1) ? 1 : 2);
