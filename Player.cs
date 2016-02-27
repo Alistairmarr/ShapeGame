@@ -130,11 +130,11 @@ namespace ShapeGame
                 Segment seg = segment.Value.GetEstimatedSegment(cur);
                 if (seg.IsCircle())
                 {
-                    var circle = new Ellipse { Width = seg.Radius * 2, Height = seg.Radius * 2 };
+                    var circle = new Ellipse { Width = seg.Radius * 0, Height = seg.Radius * 0 };
                     circle.SetValue(Canvas.LeftProperty, seg.X1 - seg.Radius);
                     circle.SetValue(Canvas.TopProperty, seg.Y1 - seg.Radius);
                     circle.Stroke = this.jointsBrush;
-                    circle.StrokeThickness = 1;
+                    circle.StrokeThickness = 0;
                     circle.Fill = this.bonesBrush;
                     children.Add(circle);
                 }
