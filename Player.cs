@@ -112,7 +112,7 @@ namespace ShapeGame
                 {
                     var line = new Line
                         {
-                            StrokeThickness = seg.Radius * 0,
+                            StrokeThickness = seg.Radius * 2,
                             X1 = seg.X1,
                             Y1 = seg.Y1,
                             X2 = seg.X2,
