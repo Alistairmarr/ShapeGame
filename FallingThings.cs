@@ -600,8 +600,8 @@ namespace ShapeGame
             glowColour.B = 230;
             if (numSides <= 1)
             {
-                var glow = new DropShadowEffect { Color = glowColour, Direction = 320, ShadowDepth = 25, Opacity = 0.5, BlurRadius = 20 };
-                var circle = new Ellipse { Width = size * 2, Height = size * 2, Stroke = brushStroke, Effect=glow };
+                var glow = new DropShadowEffect { Color = glowColour, Direction = 0, ShadowDepth = 0, Opacity = 1, BlurRadius = 80,};
+                var circle = new Ellipse { Width = size * 2, Height = size * 2, Stroke = brushStroke, Effect=glow,};
                 if (circle.Stroke != null)
                 {
                     circle.Stroke.Opacity = opacity;
