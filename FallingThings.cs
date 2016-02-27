@@ -19,7 +19,7 @@ namespace ShapeGame
     using System.Windows.Shapes;
     using Microsoft.Kinect;
     using ShapeGame.Utils;
-
+    using System.Windows.Media.Effects;
     // FallingThings is the main class to draw and maintain positions of falling shapes.  It also does hit testing
     // and appropriate bouncing.
     public class FallingThings
@@ -52,7 +52,7 @@ namespace ShapeGame
         private double baseShapeSize = 20;
         private GameMode gameMode = GameMode.Off;
         private double gravity = BaseGravity;
-        private double gravityFactor = 1.0;
+        private double gravityFactor = 0.5;
         private double airFriction = BaseAirFriction;
         private int frameCount;
         private bool doRandomColors = true;
@@ -126,7 +126,7 @@ namespace ShapeGame
         public void SetSize(double f)
         {
             this.baseShapeSize = f;
-            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 10000.0;
+            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 3000.0;
         }
 
         public void SetShapesColor(System.Windows.Media.Color color, bool doRandom)
@@ -464,6 +464,7 @@ namespace ShapeGame
                             thing.Center,
                             thing.Brush,
                             thing.BrushPulse,
+                            thing.Color,
                             thing.Size * 0.1,
                             alpha));
                     this.things[i] = thing;
@@ -483,7 +484,9 @@ namespace ShapeGame
                             thing.Theta,
                             thing.Center,
                             thing.Brush,
-                            (thing.State == ThingState.Dissolving) ? null : thing.Brush2,
+                            
+                    (thing.State == ThingState.Dissolving) ? null : thing.Brush2,
+                    thing.Color,
                             1,
                             1));
                 }
@@ -588,12 +591,17 @@ namespace ShapeGame
             System.Windows.Point center,
             System.Windows.Media.Brush brush,
             System.Windows.Media.Brush brushStroke,
+            System.Windows.Media.Color glowColour,
             double strokeThickness,
             double opacity)
         {
+            glowColour.R = 173;
+            glowColour.G = 216;
+            glowColour.B = 230;
             if (numSides <= 1)
             {
-                var circle = new Ellipse { Width = size * 2, Height = size * 2, Stroke = brushStroke };
+                var glow = new DropShadowEffect { Color = glowColour, Direction = 320, ShadowDepth = 25, Opacity = 0.5, BlurRadius = 20 };
+                var circle = new Ellipse { Width = size * 2, Height = size * 2, Stroke = brushStroke, Effect=glow };
                 if (circle.Stroke != null)
                 {
                     circle.Stroke.Opacity = opacity;
