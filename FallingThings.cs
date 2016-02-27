@@ -24,19 +24,19 @@ namespace ShapeGame
     // and appropriate bouncing.
     public class FallingThings
     {
-        private const double BaseGravity = 0.117;
+        private const double BaseGravity = 0.017;
         private const double BaseAirFriction = 0.994;
 
         private readonly Dictionary<PolyType, PolyDef> polyDefs = new Dictionary<PolyType, PolyDef>
             {
-                { PolyType.Star0, new PolyDef { Sides = 3, Skip = 1 } },
-                { PolyType.Star1, new PolyDef { Sides = 5, Skip = 2 } },
-                { PolyType.Star2, new PolyDef { Sides = 5, Skip = 1 } },
-                { PolyType.Star3, new PolyDef { Sides = 4, Skip = 1 } },
-                { PolyType.Star4, new PolyDef { Sides = 6, Skip = 1 } },
-                { PolyType.Star5, new PolyDef { Sides = 7, Skip = 3 } },
+                { PolyType.Star0, new PolyDef { Sides = 1, Skip = 1 } },
+                { PolyType.Star1, new PolyDef { Sides = 1, Skip = 1 } },
+                { PolyType.Star2, new PolyDef { Sides = 1, Skip = 1 } },
+                { PolyType.Star3, new PolyDef { Sides = 1, Skip = 1 } },
+                { PolyType.Star4, new PolyDef { Sides = 1, Skip = 1 } },
+                { PolyType.Star5, new PolyDef { Sides = 1, Skip = 1 } },
                 { PolyType.Star6, new PolyDef { Sides = 1, Skip = 1 } },
-                { PolyType.Star7, new PolyDef { Sides = 0, Skip = 1 } }
+                { PolyType.Star7, new PolyDef { Sides = 1, Skip = 1 } }
             };
 
         private readonly List<Thing> things = new List<Thing>();
@@ -119,7 +119,7 @@ namespace ShapeGame
 
         public void SetDropRate(double f)
         {
-            this.dropRate = f;
+            this.dropRate = f*4;
         }
 
         public void SetSize(double f)
