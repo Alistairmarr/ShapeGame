@@ -47,7 +47,8 @@ namespace ShapeGame
             colorId = (colorId + 1) % mixR.Count();
 
             this.jointsBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(jointCols[mixR[i]], jointCols[mixG[i]], jointCols[mixB[i]]));
-            this.bonesBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(boneCols[mixR[i]], boneCols[mixG[i]], boneCols[mixB[i]]));
+            //this.bonesBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(boneCols[mixR[i]], boneCols[mixG[i]], boneCols[mixB[i]]));
+            this.bonesBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(30,30,30));
             this.LastUpdated = DateTime.Now;
         }
 
@@ -112,7 +113,7 @@ namespace ShapeGame
                 {
                     var line = new Line
                         {
-                            StrokeThickness = seg.Radius * 2,
+                            StrokeThickness = seg.Radius * 6,
                             X1 = seg.X1,
                             Y1 = seg.Y1,
                             X2 = seg.X2,
