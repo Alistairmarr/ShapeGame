@@ -121,7 +121,7 @@ namespace ShapeGame
 
         public void SetDropRate(double f)
         {
-            this.dropRate = f*4;
+            this.dropRate = f*2;
         }
 
         public void SetSize(double f)
@@ -346,8 +346,15 @@ namespace ShapeGame
             {
                 Thing thing = this.things[thingIndex];
                 thing.Center.Offset(thing.XVelocity, thing.YVelocity);
-                thing.YVelocity += this.gravity * this.sceneRect.Height;
-                thing.YVelocity *= this.airFriction;
+                if (thing.trail>=1 && thing.trail<9)
+                {
+                    thing.YVelocity =0;
+                }
+                else if(thing.trail == 0 || thing.trail>=9)
+                {
+                    thing.YVelocity += this.gravity * this.sceneRect.Height;
+                    thing.YVelocity *= this.airFriction;
+                } 
                 thing.XVelocity *= this.airFriction;
                 thing.Theta += thing.SpinRate;
 
@@ -431,13 +438,11 @@ namespace ShapeGame
         public void DrawFrame(UIElementCollection children)
         {
             this.frameCount++;
-
             // Draw all shapes in the scene
-            for (int i = 0; i < this.things.Count; i++)
+            var count = this.things.Count;
+            for (int i = 0; i < count; i++)
             {
                 Thing thing = this.things[i];
-                var prevX = thing.Center.X;
-                var prevY = thing.Center.Y;
                 if (thing.Brush == null)
                 {
                     thing.Brush = new SolidColorBrush(thing.Color);
@@ -452,7 +457,26 @@ namespace ShapeGame
                 }
 
                 if (thing.State == ThingState.Falling){
-                    //Graphics.FillRectangle(aBrush, x, y, 1, 1);
+                    if (thing.trail == 0)
+                    {
+                        this.DropNewThing2(PolyType.Star0, this.shapeSize*0.9, System.Windows.Media.Color.FromRgb(255, 255, 255),Convert.ToInt32(thing.Center.X),Convert.ToInt32(thing.Center.Y-60));
+                        thing.trail = 9;
+                        this.things[i] = thing;
+                    }
+                    if(thing.trail>=1 && thing.trail < 8)
+                    {
+                        thing.Size = thing.Size * 0.9;
+                        thing.trail = thing.trail+1;
+                        thing.YVelocity = 0;
+                        thing.Color.A = Convert.ToByte(thing.Color.A * 0.9);
+                        this.things[i] = thing;
+                    }
+                    if (thing.trail == 8)
+                    {
+                        thing.trail = thing.trail + 1;
+                        thing.State = ThingState.Remove;
+                        this.things[i] = thing;
+                    }
                 }
                 if (thing.State == ThingState.Bouncing)
                 {
@@ -583,7 +607,42 @@ namespace ShapeGame
                 State = ThingState.Falling,
                 TouchedBy = 0,
                 Hotness = 0,
-                FlashCount = 0
+                FlashCount = 0,
+                trail = 0
+            };
+
+            this.things.Add(newThing);
+        }
+        private void DropNewThing2(PolyType newShape, double newSize, System.Windows.Media.Color newColor,int x, int y)
+        {
+            // Only drop within the center "square" area 
+            double dropWidth = this.sceneRect.Bottom - this.sceneRect.Top;
+            if (dropWidth > this.sceneRect.Right - this.sceneRect.Left)
+            {
+                dropWidth = this.sceneRect.Right - this.sceneRect.Left;
+            }
+
+            var newThing = new Thing
+            {
+                Size = newSize,
+                YVelocity = 0,
+                XVelocity = 0,
+                Shape = newShape,
+                Center = new System.Windows.Point(x, y),
+                SpinRate = ((this.rnd.NextDouble() * 12.0) - 6.0) * 2.0 * Math.PI / this.targetFrameRate / 4.0,
+                Theta = 0,
+                TimeLastHit = DateTime.MinValue,
+                AvgTimeBetweenHits = 100,
+                Color = newColor,
+                Brush = null,
+                Brush2 = null,
+                BrushPulse = null,
+                Dissolve = 0,
+                State = ThingState.Falling,
+                TouchedBy = 0,
+                Hotness = 0,
+                FlashCount = 0,
+                trail = 1
             };
 
             this.things.Add(newThing);
@@ -605,7 +664,7 @@ namespace ShapeGame
             glowColour.R = 173;
             glowColour.G = 216;
             glowColour.B = 255;
-            var glow = new DropShadowEffect { Color = glowColour, Direction = 90, ShadowDepth = 5, Opacity = 1, BlurRadius =10 };
+            var glow = new DropShadowEffect { Color = glowColour, Direction = 90, ShadowDepth = 5, Opacity = 1, BlurRadius =20 };
             if (numSides <= 1)
             {
 
@@ -643,7 +702,6 @@ namespace ShapeGame
             polyline.StrokeThickness = strokeThickness;
             return polyline;
         }
-
         internal struct PolyDef
         {
             public int Sides;
@@ -660,6 +718,7 @@ namespace ShapeGame
             public double SpinRate;
             public double YVelocity;
             public double XVelocity;
+            public int trail;
             public PolyType Shape;
             public System.Windows.Media.Color Color;
             public System.Windows.Media.Brush Brush;
