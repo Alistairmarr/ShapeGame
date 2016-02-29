@@ -43,7 +43,7 @@ namespace ShapeGame
         #region Private State
         private const int TimerResolution = 2;  // ms
         private const int NumIntraFrames = 3;
-        private const int MaxShapes = 40;
+        private const int MaxShapes = 80;
         private const double MaxFramerate = 70;
         private const double MinFramerate = 15;
         private const double MinShapeSize = 12;
