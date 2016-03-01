@@ -68,8 +68,8 @@ namespace ShapeGame
             this.intraFrames = intraFrames;
             this.targetFrameRate = framerate * intraFrames;
             this.SetGravity(this.gravityFactor);
-            this.sceneRect.X = this.sceneRect.Y = 100;
-            this.sceneRect.Width = 500;
+            this.sceneRect.X = this.sceneRect.Y = 1000;
+            this.sceneRect.Width = 1000;
             this.sceneRect.Height = 100;
             this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 10000.0;
             this.expandingRate = Math.Exp(Math.Log(6.0) / (this.targetFrameRate * DissolveTime));
@@ -127,7 +127,7 @@ namespace ShapeGame
         public void SetSize(double f)
         {
             this.baseShapeSize = f;
-            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 6000.0;
+            this.shapeSize = this.sceneRect.Height * this.baseShapeSize / 10000.0;
         }
 
         public void SetShapesColor(System.Windows.Media.Color color, bool doRandom)
@@ -238,6 +238,9 @@ namespace ShapeGame
                                     else
                                     {
                                         // Bounce off line segment
+                                        //double velocityX = (pair.Value.XVelocity * (1.0 - lineHitLocation)) + (pair.Value.XVelocity2 * lineHitLocation);
+                                        //double velocityY = (pair.Value.YVelocity * (1.0 - lineHitLocation)) + (pair.Value.YVelocity2 * lineHitLocation);
+
                                         double velocityX = (pair.Value.XVelocity * (1.0 - lineHitLocation)) + (pair.Value.XVelocity2 * lineHitLocation);
                                         double velocityY = (pair.Value.YVelocity * (1.0 - lineHitLocation)) + (pair.Value.YVelocity2 * lineHitLocation);
 
@@ -360,13 +363,13 @@ namespace ShapeGame
                         thing.YVelocity = -thing.YVelocity;
                         this.things[thingIndex] = thing;
                     }
-                    if (thing.trail >10 && thing.trail <= 20)
+                    if (thing.trail >10 && thing.trail <= 15)
                     {
                         thing.Size = thing.Size * 0.99;
                         thing.trail = thing.trail + 1;
                         this.things[thingIndex] = thing;
                     }
-                    if (thing.trail == 21)
+                    if (thing.trail == 16)
                     {
                         thing.trail = thing.trail + 2;
                         thing.State = ThingState.Remove;
