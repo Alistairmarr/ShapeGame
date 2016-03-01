@@ -25,7 +25,7 @@ namespace ShapeGame
     // and appropriate bouncing.
     public class FallingThings
     {
-        private const double BaseGravity = 0.01;
+        private const double BaseGravity = 0.005;
         private const double BaseAirFriction = 0.994;
 
         private readonly Dictionary<PolyType, PolyDef> polyDefs = new Dictionary<PolyType, PolyDef>
@@ -227,8 +227,8 @@ namespace ShapeGame
                                             hitCenter.X,
                                             hitCenter.Y,
                                             seg.Radius,
-                                            pair.Value.XVelocity / this.targetFrameRate,
-                                            pair.Value.YVelocity / this.targetFrameRate);
+                                            (pair.Value.XVelocity / this.targetFrameRate)*2,
+                                            (pair.Value.YVelocity / this.targetFrameRate)*2);
 
                                         if (fMs > 100.0)
                                         {
@@ -241,8 +241,8 @@ namespace ShapeGame
                                         //double velocityX = (pair.Value.XVelocity * (1.0 - lineHitLocation)) + (pair.Value.XVelocity2 * lineHitLocation);
                                         //double velocityY = (pair.Value.YVelocity * (1.0 - lineHitLocation)) + (pair.Value.YVelocity2 * lineHitLocation);
 
-                                        double velocityX = (pair.Value.XVelocity * (1.0 - lineHitLocation)) + (pair.Value.XVelocity2 * lineHitLocation);
-                                        double velocityY = (pair.Value.YVelocity * (1.0 - lineHitLocation)) + (pair.Value.YVelocity2 * lineHitLocation);
+                                        double velocityX = ((pair.Value.XVelocity * (1.0 - lineHitLocation)) + (pair.Value.XVelocity2 * lineHitLocation))/2;
+                                        double velocityY = ((pair.Value.YVelocity * (1.0 - lineHitLocation)) + (pair.Value.YVelocity2 * lineHitLocation))/2;
 
                                         thing.BounceOff(
                                             hitCenter.X,

@@ -50,7 +50,7 @@ namespace ShapeGame
         private const double MaxShapeSize = 90;
         private const double DefaultDropRate = 4;
         private const double DefaultDropSize = 32.0;
-        private const double DefaultDropGravity = 1.0;
+        private const double DefaultDropGravity = 0.5;
 
         private readonly Dictionary<int, Player> players = new Dictionary<int, Player>();
         private readonly SoundPlayer popSound = new SoundPlayer();
